@@ -1,0 +1,9 @@
+cmake-build-debug
+.DS_Store
+.idea
+venv
+book/
+book_out/
+
+Sudoku_*
+~$*
