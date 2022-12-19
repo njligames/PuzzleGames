@@ -19,12 +19,13 @@ gutter = 6
 # page_height = 3300
 # gutter = 50
 
-margin_outer = 20
-margin_inner = 45
-margin_top = 20
-margin_bottom = 20
-page_width = 612
-page_height = 792
+margin_outer = 132
+margin_inner = 207
+margin_top = 150
+margin_bottom = 151
+page_width = 2626
+page_height = 3450
+density=300
 
 print("#!/bin/bash\n")
 print("set -x")
@@ -42,11 +43,11 @@ def gen(num_columns, num_rows, puzzle_dimension, offset, side):
     total_width = (puzzle_dimension * num_columns) + (gutter * (num_columns - 1))
     total_height = (puzzle_dimension * num_rows) + (margin_top + margin_bottom) + (gutter * (num_rows - 1))
 
-    x_offset = int((page_width - total_width) / 2)
-    y_offset = int((page_height - total_height) / 2)
+    x_offset = 0 #int((page_width - total_width) / 2)
+    y_offset = 0 #int((page_height - total_height) / 2)
 
     print("create_" + str(num_columns) + "x" + str(num_rows) + "_" + str(puzzle_dimension) + "_" + str(offset) + "() {")
-    print("\tconvert -size " + str(page_width) + "x" + str(page_height) + " xc:none -gravity northwest \\")
+    print("\tconvert -density " + str(density) + " -quality 100 -size " + str(page_width) + "x" + str(page_height) + " xc:none -gravity northwest \\")
 
     for row in range(num_rows):
         for column in range(num_columns):
