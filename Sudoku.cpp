@@ -433,10 +433,10 @@ void Sudoku::printSVG(bool solved, string name, string puzzle_name, string path)
    <polyline points="400,0 400,450" style="fill:none; stroke:black ; stroke-width:1" />
                        )";
 
-  string temp_path("out/puzzle/sudoku." + name + ".svg");
+  string temp_path("out/puzzle/puzzle.sudoku." + name + ".svg");
   if(solved)
   {
-      temp_path = "out/solved/sudoku." + name + ".svg";
+      temp_path = "out/solved/solved.sudoku." + name + ".svg";
   }
 
   string cmd;

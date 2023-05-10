@@ -1,21 +1,22 @@
 #!/bin/bash
 
-# set -x
+set -x
 columns_puzzle=$1
 rows_puzzle=$2
 columns_solved=$3
 rows_solved=$4
 num_puzzle_pages=$5
+mark=$6
 n=$(( $columns_puzzle * $rows_puzzle * 2 ))
 
 shopt -s nullglob
 
 # Get every puzzle image
-inarray=("cmake-build-debug/out/puzzle/*.png")
+inarray=("cmake-build-debug/out/${mark}/puzzle/*.png")
 arr_puzzle=($(printf "%s\n" "${inarray[@]}"))
 
 # Get every solved image
-inarray=("cmake-build-debug/out/solved/*.png")
+inarray=("cmake-build-debug/out/${mark}/solved/*.png")
 arr_solved=($(printf "%s\n" "${inarray[@]}"))
 
 # Create an index array the same size as the puzzle array and shuffle it.
@@ -81,8 +82,8 @@ for f in "${arr_puzzle_sorted[@]}"; do
     ((i=i+1))
     ((j=j+1))
 
-    mkdir -p book/puzzle/${page_dir}/
-    cp ${f} book/puzzle/${page_dir}/
+    mkdir -p book/${mark}/puzzle/${page_dir}/
+    cp ${f} book/${mark}/puzzle/${page_dir}/
 
     if [[ "$i" -ge $n ]]; then
         i=0
@@ -90,7 +91,7 @@ for f in "${arr_puzzle_sorted[@]}"; do
 
         if [[ $j -lt ${#arr_puzzle_sorted[@]} ]]; then
             page_dir=`echo $page | awk '{printf("%09d\n", $1)}'`
-            mkdir -p book/puzzle/$page_dir
+            mkdir -p book/${mark}/puzzle/$page_dir
         fi
     fi
 
@@ -107,8 +108,8 @@ for f in "${arr_solved_sorted[@]}"; do
     ((i=i+1))
     ((j=j+1))
 
-    mkdir -p book/solved/${page_dir}/
-    cp ${f} book/solved/${page_dir}/
+    mkdir -p book/${mark}/solved/${page_dir}/
+    cp ${f} book/${mark}/solved/${page_dir}/
 
     if [[ "$i" -ge $n ]]; then
         i=0
@@ -116,7 +117,7 @@ for f in "${arr_solved_sorted[@]}"; do
 
         if [[ $j -lt ${#arr_solved_sorted[@]} ]]; then
             page_dir=`echo $page | awk '{printf("%09d\n", $1)}'`
-            mkdir -p book/solved/$page_dir
+            mkdir -p book/${mark}/solved/$page_dir
         fi
     fi
 

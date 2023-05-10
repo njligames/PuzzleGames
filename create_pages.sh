@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# set -x
+set -x
 #
 # rm -rf cmake-build-debug/out
 #
@@ -20,45 +20,46 @@ mark=$6
 
 orientation=$7
 
-rm -rf book
-mkdir -p book
-mkdir -p book/puzzle
-mkdir -p book/solved
-bash copy_png_puzzles.sh ${columns_puzzle} ${rows_puzzle} ${columns_solved} ${rows_solved} ${num_puzzle_pages}
+bash copy_png_puzzles.sh ${columns_puzzle} ${rows_puzzle} ${columns_solved} ${rows_solved} ${num_puzzle_pages} ${mark}
 
-bash generate_puzzle_pages_script.sh ${columns_puzzle} ${rows_puzzle} ${orientation}
-bash generate_solved_pages_script.sh ${columns_solved} ${rows_solved} ${orientation}
+bash generate_puzzle_pages_script.sh ${columns_puzzle} ${rows_puzzle} ${orientation} ${mark}
+bash generate_solved_pages_script.sh ${columns_solved} ${rows_solved} ${orientation} ${mark}
 
-rm -rf book_out
 shopt -s nullglob
-arr=("book/puzzle"/*)
+arr=("book/$mark/puzzle"/*)
 i=0
 
 for f in "${arr[@]}"; do
     if [ "$i" -lt "$num_puzzle_pages" ]
     then
-        bash create_puzzle_pages.sh $i
+        bash create_puzzle_pages.sh $i $mark
     fi
 
    ((i=i+1))
 done
 
 shopt -s nullglob
-arr=("book/solved"/*)
+arr=("book/$mark/solved"/*)
 i=0
 ((num_solved_pages=num_puzzle_pages/2))
+
+echo "a"
+echo $arr
 
 for f in "${arr[@]}"; do
     if [ "$i" -lt "$num_solved_pages" ]
     then
-        bash create_solved_pages.sh $i
+        bash create_solved_pages.sh $i $mark
     fi
 
    ((i=i+1))
 done
 
 shopt -s nullglob
-puzzle=("book_out/puzzle"/*)
-solved=("book_out/solved"/*)
-/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Resources/join.py --output ./Sudoku_${mark}.pdf Cover_${mark}.pdf ${puzzle[*]} ${solved[*]} Back_${mark}.pdf --verbose
+puzzle=("book/${mark}/pages/puzzle"/*)
+solved=("book/${mark}/pages/solved"/*)
+
+/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/MacOS/join --output ./book/${mark}/Sudoku_${mark}.pdf Cover_${mark}.pdf ${puzzle[*]} ${solved[*]} Back_${mark}.pdf --verbose
+
+open ./book/${mark}/Sudoku_${mark}.pdf
 

@@ -10,7 +10,7 @@ rows_solved=6
 
 num_puzzle_pages=100
 
-mark=Mark2
+mark=Mark3
 orientation="b"
 
 bash create_pages.sh ${columns_puzzle} ${rows_puzzle} ${columns_solved} ${rows_solved} ${num_puzzle_pages} ${mark} ${orientation}
