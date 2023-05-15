@@ -4,8 +4,8 @@ set -x
 mark=$2
 shopt -s nullglob
 filename=`echo $1 | awk '{printf("%09d\n", $1)}'`
-arr=("book/Mark2/solved/${filename}/"/*)
-mkdir -p book/Mark2/pages/solved
+arr=("book/Mark3/solved/${filename}/"/*)
+mkdir -p book/Mark3/pages/solved
 create_4x6_505_75() {
 	convert -density 300 -quality 100 -size 2550x3300 xc:none -gravity northwest \
 		\( ${arr[0]} -resize 505x505 \)  -geometry +75+150 -composite \
@@ -32,7 +32,7 @@ create_4x6_505_75() {
 		\( ${arr[21]} -resize 505x505 \)  -geometry +586+2705 -composite \
 		\( ${arr[22]} -resize 505x505 \)  -geometry +1097+2705 -composite \
 		\( ${arr[23]} -resize 505x505 \)  -geometry +1608+2705 -composite \
-	book/Mark2/pages/solved/${filename}_left.pdf
+	book/Mark3/pages/solved/${filename}_left.pdf
 }
 create_4x6_505_75
 create_4x6_505_188() {
@@ -61,6 +61,6 @@ create_4x6_505_188() {
 		\( ${arr[45]} -resize 505x505 \)  -geometry +699+2705 -composite \
 		\( ${arr[46]} -resize 505x505 \)  -geometry +1210+2705 -composite \
 		\( ${arr[47]} -resize 505x505 \)  -geometry +1721+2705 -composite \
-	book/Mark2/pages/solved/${filename}_right.pdf
+	book/Mark3/pages/solved/${filename}_right.pdf
 }
 create_4x6_505_188

@@ -5,12 +5,14 @@ Steps to create book.
 
 1. Change directories: `cd cmake-build-debug`
 
-2. Run `./cmake-build-debug/PuzzleGames`
+2. Run `./PuzzleGames`
     PuzzleGames will output `svg` solutions and puzzles to:  
         `cmake-build-debug/out/puzzle` 
         `cmake-build-debug/out/solved`
 
-3. Create a folder inside of the `cmake-build-debug` folder, for the book title. (ex: Mark2)
+3. Create a folder inside of the `cmake-build-debug/out` folder, for the book title. (ex: `cmake-build-debug/out/Mark2`)
+
+1. Change to root: `cd ../`
 
 4. Run `./export_svg_to_png.sh Mark2`
     The pages will be output to `cmake-build-debug/out/Mark2/puzzle` and `cmake-build-debug/out/Mark2/solved`.

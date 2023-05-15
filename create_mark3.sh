@@ -8,7 +8,7 @@ rows_puzzle=4
 columns_solved=4
 rows_solved=6
 
-num_puzzle_pages=100
+num_puzzle_pages=50
 
 mark=Mark3
 orientation="b"

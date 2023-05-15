@@ -4,8 +4,8 @@ set -x
 mark=$2
 shopt -s nullglob
 filename=`echo $1 | awk '{printf("%09d\n", $1)}'`
-arr=("book/Mark2/puzzle/${filename}/"/*)
-mkdir -p book/Mark2/pages/puzzle
+arr=("book/Mark3/puzzle/${filename}/"/*)
+mkdir -p book/Mark3/pages/puzzle
 create_3x4_754_75() {
 	convert -density 300 -quality 100 -size 2550x3300 xc:none -gravity northwest \
 		\( ${arr[0]} -resize 754x754 \)  -geometry +75+150 -composite \
@@ -20,7 +20,7 @@ create_3x4_754_75() {
 		\( ${arr[9]} -resize 754x754 \)  -geometry +75+2430 -composite \
 		\( ${arr[10]} -resize 754x754 \)  -geometry +835+2430 -composite \
 		\( ${arr[11]} -resize 754x754 \)  -geometry +1595+2430 -composite \
-	book/Mark2/pages/puzzle/${filename}_left.pdf
+	book/Mark3/pages/puzzle/${filename}_left.pdf
 }
 create_3x4_754_75
 create_3x4_754_188() {
@@ -37,6 +37,6 @@ create_3x4_754_188() {
 		\( ${arr[21]} -resize 754x754 \)  -geometry +188+2430 -composite \
 		\( ${arr[22]} -resize 754x754 \)  -geometry +948+2430 -composite \
 		\( ${arr[23]} -resize 754x754 \)  -geometry +1708+2430 -composite \
-	book/Mark2/pages/puzzle/${filename}_right.pdf
+	book/Mark3/pages/puzzle/${filename}_right.pdf
 }
 create_3x4_754_188
