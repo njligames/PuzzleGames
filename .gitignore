@@ -6,3 +6,5 @@ venv
 ~$*
 book/
 sudokuaday/
+create_puzzle_pages.sh
+create_solved_pages.sh

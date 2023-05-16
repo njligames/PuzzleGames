@@ -2,8 +2,6 @@
 
 import sys
 
-# columns=4
-# rows=6
 columns=int(sys.argv[1])
 rows=int(sys.argv[2])
 subdir=sys.argv[3]
@@ -30,7 +28,6 @@ print("shopt -s nullglob")
 print("filename=`echo $1 | awk '{printf(\"%09d\\n\", $1)}'`")
 print("arr=(\"book/" + mark + "/" + subdir + "/${filename}/\"/*)")
 
-# print("rm -rf book/" + mark + "/pages/" + subdir)
 print("mkdir -p book/" + mark + "/pages/" + subdir)
 
 def gen(num_columns, num_rows, puzzle_dimension, offset, side):
@@ -39,11 +36,15 @@ def gen(num_columns, num_rows, puzzle_dimension, offset, side):
     total_width = (puzzle_dimension * num_columns) + (gutter * (num_columns - 1))
     total_height = (puzzle_dimension * num_rows) + (margin_top + margin_bottom) + (gutter * (num_rows - 1))
 
-    x_offset = 0 #int((page_width - total_width) / 2)
-    y_offset = 0 #int((page_height - total_height) / 2)
+    x_offset = int((page_width - total_width) / 2)
+    y_offset = int((page_height - total_height) / 2)
 
     print("create_" + str(num_columns) + "x" + str(num_rows) + "_" + str(puzzle_dimension) + "_" + str(offset) + "() {")
-    print("\tconvert -density " + str(density) + " -quality 100 -size " + str(page_width) + "x" + str(page_height) + " xc:none -gravity northwest \\")
+
+    if "left" == side:
+        print("\tconvert -density " + str(density) + " -quality 100 -size " + str(page_width) + "x" + str(page_height) + " xc:none -gravity northwest \\")
+    else:
+        print("\tconvert -density " + str(density) + " -quality 100 -size " + str(page_width) + "x" + str(page_height) + " xc:none -gravity northeast \\")
 
     for row in range(num_rows):
         for column in range(num_columns):
@@ -62,7 +63,7 @@ def gen_left(num_columns, num_rows, puzzle_dimension):
 
 
 def gen_right(num_columns, num_rows, puzzle_dimension):
-    gen(num_columns, num_rows, puzzle_dimension, margin_inner, "right")
+    gen(num_columns, num_rows, puzzle_dimension, margin_outer, "right")
 
 
 def genA_left(num_columns, num_rows):
